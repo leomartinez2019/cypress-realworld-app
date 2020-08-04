@@ -102,7 +102,7 @@ export const authMachine = Machine<AuthMachineContext, AuthMachineSchema, AuthMa
       },
       performLogin: async (ctx, event) => {
         return await httpClient
-          .post(`http:///login`, event)
+          .post(`http://127.0.0.1:3001/login`, event)
           .then(({ data }) => {
             history.push("/");
             return data;
