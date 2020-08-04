@@ -96,13 +96,13 @@ export const authMachine = Machine<AuthMachineContext, AuthMachineSchema, AuthMa
     services: {
       performSignup: async (ctx, event) => {
         const payload = omit("type", event);
-        const resp = await httpClient.post(`http://localhost:3001/users`, payload);
+        const resp = await httpClient.post(`http://127.0.0.1:3001/users`, payload);
         history.push("/signin");
         return resp.data;
       },
       performLogin: async (ctx, event) => {
         return await httpClient
-          .post(`http://localhost:3001/login`, event)
+          .post(`http:///login`, event)
           .then(({ data }) => {
             history.push("/");
             return data;
@@ -112,17 +112,17 @@ export const authMachine = Machine<AuthMachineContext, AuthMachineSchema, AuthMa
           });
       },
       getUserProfile: async (ctx, event) => {
-        const resp = await httpClient.get(`http://localhost:3001/checkAuth`);
+        const resp = await httpClient.get(`http://127.0.0.1:3001/checkAuth`);
         return resp.data;
       },
       updateProfile: async (ctx, event: any) => {
         const payload = omit("type", event);
-        const resp = await httpClient.patch(`http://localhost:3001/users/${payload.id}`, payload);
+        const resp = await httpClient.patch(`http://127.0.0.1:3001/users/${payload.id}`, payload);
         return resp.data;
       },
       performLogout: async (ctx, event) => {
         localStorage.removeItem("authState");
-        return await httpClient.post(`http://localhost:3001/logout`);
+        return await httpClient.post(`http://127.0.0.1:3001/logout`);
       },
     },
     actions: {
